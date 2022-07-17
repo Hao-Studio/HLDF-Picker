@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>2024届大转盘框架</title>
+<link
+  rel="stylesheet"
+  href="index.files/ui/mdui-v1.0.2/css/mdui.min.css"/>
+<link rel="stylesheet" href="https://cdn.w3cbus.com/mdui.org/static/theme/material/index.e8409b3c.css"><!--新样式-->
+</head>
+<body class="mdui-theme-primary-indigo mdui-theme-accent-indigo mdui-theme-layout-auto" style="background:url(index.files/image/background.jpg) no-repeat center center fixed;background-size:100%;">
+<script src="index.files/ui/mdui-v1.0.2/js/mdui.min.js"></script>
+<script type="text/javascript" src="index.files/script/index.js"></script>
+<audio id="sound" src="index.files/sound/sound.mp3" preload></audio>
+<div id="progress" class="mdui-progress" style="display: none;">
+<div class="mdui-progress-indeterminate"></div>
+</div>
+<div align="center" class="mdui-container-fluid">
+<h1 align="center" class="mdui-typo-display-3" style="font-weight:300;">2024届大转盘框架</h1>
+<h6 align="center" class="mdui-typo-caption-opacity" style="font-weight:400;">Version 2.3.220124.1 (Beta，包含 BugFix Update，<nobr class="mdui-text-color-red">过期的</nobr>)</h6>
+<div class="mdui-dialog" id="settings">
+<div class="mdui-dialog-title">设置和更多选项</div>
+<div align="center">
+<i class="mdui-icon material-icons">network_check</i>
+<i id="NetState" class="mdui-icon material-icons"></i>
+<br>
+<i class="mdui-icon material-icons">music_note</i>
+<label class="mdui-switch" mdui-tooltip="{content: '背景音乐开关', position: 'right'}">
+<input id="cb" type="checkbox" checked/>
+<i class="mdui-switch-icon"></i>
+</label>
+<h5 style="font-weight:400;">更加详细的配置位于 index.files/index.html 第25行 Config变量</h5>
+<p class="mdui-typo"><a href="mailto://jhl0916@outlook.com">提供反馈</a></p>
+<h6 style="font-weight:400;">此系统以 GPL V3.0 协议开放源代码</h6>
+<h6 style="font-weight:400;">Powered By Hao Studio (原 HaoCloud Studio) 软件开发中心 & 西林分部</h6>
+<h6 style="font-weight:400;">&#169; Hao Studio 2019 - <script type="text/javascript">document.write(new Date().getFullYear());</script></h6>
+</div>
+<div class="mdui-dialog-actions">
+<button class="mdui-btn mdui-ripple" mdui-dialog-confirm>确定</button>
+</div>
+</div>
+<button id="Button" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent mdui-hoverable" onclick="Luck_Draw()" mdui-tooltip="{content: '单击按钮或按下空格键开始抽奖', position: 'top'}">抽奖</button>
+<button class="mdui-btn mdui-btn-icon mdui-color-theme-accent mdui-ripple mdui-hoverable" mdui-tooltip="{content: '设置和更多选项', position: 'top'}" mdui-dialog="{target: '#settings'}"><i class="mdui-icon material-icons">more_horiz</i></button>
+<p class="mdui-typo mdui-color-theme-accent" style="width:fit-content;width:-webkit-fit-content;width:-moz-fit-content;">按下 <kbd>空格</kbd> 键也可以开始抽奖</p>
+<img src="index.files/image/arrow.png"/>
+<br>
+<img id="Image" src="index.files/image/image.png" class="mdui-img-fluid" style=""/>
+</div>
+</body>
+</html>
