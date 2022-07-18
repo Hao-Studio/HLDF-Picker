@@ -166,7 +166,8 @@ function Luck_Draw() {
                             NotificationObject.onclose = function () {
                                 console.log("通知已关闭。");
                             }
-                       }
+                        }
+                    })
                 }
                 console.log("按钮启用。");
                 document.getElementById("Button").disabled=false;
