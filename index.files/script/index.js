@@ -77,15 +77,10 @@ function Notification_Check () {
         return false;
     }
 }
-var Notification_Created = false;
 function Luck_Draw() {
     console.log("Luck_Draw 函数已被调用。");
     console.log("按钮禁用。");
     document.getElementById("Button").disabled = true;
-    if (CanSend && Notification_Created) {
-        console.info("关闭旧桌面通知...");
-        NotificationObject.close();
-    }
     console.log("显示进度条。");
     document.getElementById("progress").style.display = "block";
     console.log("显示SnackBar。");
@@ -161,7 +156,6 @@ function Luck_Draw() {
                 if (CanSend) {
                     console.info("发送桌面通知...");
                     var NotificationObject = new Notification("选择结果",{dir: "auto",lang: "zh-cn",body: "抽中了" + Number + "号学生。",tag: "com.hao.hsir.pwa.notification",icon: "/index.files/image/appicon.png"});
-                    Notification_Created = true;
                     NotificationObject.onshow = function () {
                         console.log("通知已展示。");
                     }
