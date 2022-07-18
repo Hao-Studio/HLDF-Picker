@@ -67,7 +67,7 @@ function Luck_Draw() {
     } else if (Notification.permission === "granted") {
         console.info("用户已允许桌面通知权限，可以发送消息。");
         CanSend = true;
-    } else if (Notification.permission !== "denied") {
+    } else if (Notification.permission === "denied" ||Notification.permission === "default") {
         console.warn("用户阻止了桌面通知权限。");
         CanSend = false;
         Notification.requestPermission().then(function (Permission) {
