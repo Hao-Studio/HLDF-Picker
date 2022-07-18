@@ -83,10 +83,12 @@ function Notification_Check () {
         })
     }
 }
+var CanSend;
 function Luck_Draw() {
     console.log("Luck_Draw 函数已被调用。");
     console.log("按钮禁用。");
     document.getElementById("Button").disabled = true;
+    CanSend = Notification_Check();
     console.log("显示进度条。");
     document.getElementById("progress").style.display = "block";
     console.log("显示SnackBar。");
@@ -185,8 +187,4 @@ function Luck_Draw() {
         }
     }
 }
-var CanSend;
-window.onload = function () {
-    CheckNet();
-    CanSend = Notification_Check();
-}
+window.onload = CheckNet
