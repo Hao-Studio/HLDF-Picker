@@ -56,22 +56,20 @@ function CheckNet() {
         console.error("错误：Network ERROR!");
     }
 }
+var CanNotification;
 function Notification_Check () {
     if (!("Notification" in window)) {
         console.info("此浏览器不支持桌面通知，已忽略。");
         return false;
+        CanNotification = false;
     } else if (Notification.permission === "granted") {
         console.info("用户已允许桌面通知权限，可以发送消息。");
         return true;
+        CanNotification = true;
     } else if (Notification.permission !== "denied") {
         console.warn("用户阻止了桌面通知权限。");
         return false;
-        Notification.requestPermission().then(function (Permission) {
-            if (Permission === "granted") {
-                console.info("用户已允许桌面通知权限，可以发送消息。");
-                return true;
-            }
-        })
+        CanNotification = true;
     }
 }
 var CanSend;
@@ -80,6 +78,14 @@ function Luck_Draw() {
     console.log("按钮禁用。");
     document.getElementById("Button").disabled = true;
     CanSend = Notification_Check();
+    if (CanNotification) {
+        Notification.requestPermission().then(function (Permission) {
+            if (Permission === "granted") {
+                console.info("用户已允许桌面通知权限，可以发送消息。");
+                CanSend = true;
+            }
+        })
+    }
     console.log("显示进度条。");
     document.getElementById("progress").style.display = "block";
     console.log("显示SnackBar。");
