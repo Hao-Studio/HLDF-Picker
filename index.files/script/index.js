@@ -131,7 +131,43 @@ function Luck_Draw() {
                 document.getElementById("sound").load();
                 console.info("展示抽奖结果并写入 Session：" + Number);
                 window.sessionStorage.setItem("Number",Number);
-                mdui.alert("抽中了" + Number + "号学生。","选择结果");
+                var Dialog = mdui.alert("抽中了" + Number + "号学生。","选择结果");
+                if (!("Notification" in window)) {
+                    console.info("此浏览器不支持桌面通知，已忽略。");
+                } else if (Notification.permission === "granted") {
+                    var NotificationObject = new Notification("选择结果",{dir: "auto",lang: "zh-cn",body: "抽中了" + Number + "号学生。",tag: "com.hao.hsir.pwa.notification",icon: "/index.files/image/appicon.png"});
+                    NotificationObject.onshow = function () {
+                        console.log("通知已展示。");
+                    }
+                    NotificationObject.onclick = function () {
+                        console.log("通知被点击，关闭对话框。");
+                        Dialog.close();
+                    }
+                    NotificationObject.onerror = function () {
+                        console.error("通知发送错误。");
+                    }
+                    NotificationObject.onclose = function () {
+                        console.log("通知已关闭。");
+                    }
+                } else if (Notification.permission !== "denied") {
+                    Notification.requestPermission().then(function (Permission) {
+                        if (Permission === "granted") {
+                            var NotificationObject = new Notification("选择结果",{dir: "auto",lang: "zh-cn",body: "抽中了" + Number + "号学生。",tag: "com.hao.hsir.pwa.notification",icon: "/index.files/image/appicon.png"});
+                            NotificationObject.onshow = function () {
+                                console.log("通知已展示。");
+                            }
+                            NotificationObject.onclick = function () {
+                                console.log("通知被点击，关闭对话框。");
+                                Dialog.close();
+                            }
+                            NotificationObject.onerror = function () {
+                                console.error("通知发送错误。");
+                            }
+                            NotificationObject.onclose = function () {
+                                console.log("通知已关闭。");
+                            }
+                       }
+                });
                 console.log("按钮启用。");
                 document.getElementById("Button").disabled=false;
             } else {
