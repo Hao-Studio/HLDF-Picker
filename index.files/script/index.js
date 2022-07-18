@@ -56,6 +56,27 @@ function CheckNet() {
         console.error("错误：Network ERROR!");
     }
 }
+function Notification_Check () {
+    if (!("Notification" in window)) {
+        console.info("此浏览器不支持桌面通知，已忽略。");
+        return false;
+    } else if (Notification.permission === "granted") {
+        console.info("用户已允许桌面通知权限，可以发送消息。");
+        return true;
+    } else if (Notification.permission === "denied") {
+        console.warn("用户阻止了桌面通知权限。");
+        return false;
+        Notification.requestPermission().then(function (Permission) {
+            if (Permission === "granted") {
+                console.info("用户已允许桌面通知权限，可以发送消息。");
+                return true;
+            }
+        })
+    } else if (Notification.permission === "default") {
+        console.warn("用户未完成通知授权。");
+        return false;
+    }
+}
 function Luck_Draw() {
     console.log("Luck_Draw 函数已被调用。");
     console.log("按钮禁用。");
@@ -132,9 +153,8 @@ function Luck_Draw() {
                 console.info("展示抽奖结果并写入 Session：" + Number);
                 window.sessionStorage.setItem("Number",Number);
                 var Dialog = mdui.alert("抽中了" + Number + "号学生。","选择结果");
-                if (!("Notification" in window)) {
-                    console.info("此浏览器不支持桌面通知，已忽略。");
-                } else if (Notification.permission === "granted") {
+                if (Notification_Check()) {
+                    console.info("发送桌面通知...");
                     var NotificationObject = new Notification("选择结果",{dir: "auto",lang: "zh-cn",body: "抽中了" + Number + "号学生。",tag: "com.hao.hsir.pwa.notification",icon: "/index.files/image/appicon.png"});
                     NotificationObject.onshow = function () {
                         console.log("通知已展示。");
@@ -149,28 +169,10 @@ function Luck_Draw() {
                     NotificationObject.onclose = function () {
                         console.log("通知已关闭。");
                     }
-                } else if (Notification.permission !== "denied") {
-                    Notification.requestPermission().then(function (Permission) {
-                        if (Permission === "granted") {
-                            var NotificationObject = new Notification("选择结果",{dir: "auto",lang: "zh-cn",body: "抽中了" + Number + "号学生。",tag: "com.hao.hsir.pwa.notification",icon: "/index.files/image/appicon.png"});
-                            NotificationObject.onshow = function () {
-                                console.log("通知已展示。");
-                            }
-                            NotificationObject.onclick = function () {
-                                console.log("通知被点击，关闭对话框。");
-                                Dialog.close();
-                            }
-                            NotificationObject.onerror = function () {
-                                console.error("通知发送错误。");
-                            }
-                            NotificationObject.onclose = function () {
-                                console.log("通知已关闭。");
-                            }
-                        }
-                    })
                 }
                 console.log("按钮启用。");
                 document.getElementById("Button").disabled=false;
+                NotificationObject.close();
             } else {
                 NewNum += 1;
                 h1Obj.innerHTML = NewNum.toString().padStart(2,0);
