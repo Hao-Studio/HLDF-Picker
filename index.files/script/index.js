@@ -63,17 +63,8 @@ function Notification_Check () {
     } else if (Notification.permission === "granted") {
         console.info("用户已允许桌面通知权限，可以发送消息。");
         return true;
-    } else if (Notification.permission === "denied") {
+    } else if (Notification.permission !== "denied") {
         console.warn("用户阻止了桌面通知权限。");
-        return false;
-        Notification.requestPermission().then(function (Permission) {
-            if (Permission === "granted") {
-                console.info("用户已允许桌面通知权限，可以发送消息。");
-                return true;
-            }
-        })
-    } else if (Notification.permission === "default") {
-        console.warn("用户未完成通知授权。");
         return false;
         Notification.requestPermission().then(function (Permission) {
             if (Permission === "granted") {
