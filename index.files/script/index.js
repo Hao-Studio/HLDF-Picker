@@ -56,7 +56,7 @@ function CheckNet() {
         console.error("错误：Network ERROR!");
     }
 }
-var CanNotification;
+var CanNotification = true;
 function Notification_Check () {
     if (!("Notification" in window)) {
         console.info("此浏览器不支持桌面通知，已忽略。");
